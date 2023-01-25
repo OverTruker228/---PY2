@@ -1,0 +1,100 @@
+import doctest
+
+class Cars:
+    def __init__(self, power: int, maxspd: int, color: str):
+        """
+        Создание и подготовка к работе объекта "Автомобиль"
+        :param power: мощность автомобиля
+        :param maxspd: максимальная скорость автомобиля
+        :param color: цвет автомобиля
+        Пример:
+        >>> Lancia_Delta_HF = Cars(220, 218, "white") # инициализация объекта класса
+        """
+        if not isinstance(power, (int, float)):
+            raise TypeError("Мощность должна быть типа int или float")
+        if power <= 0:
+            raise ValueError("Мощность должна быть положительным числом")
+        self.power = power
+
+        if not isinstance(maxspd, (int, float)):
+            raise TypeError("Скорость должна быть типа int или float")
+        if maxspd <= 0:
+            raise ValueError("Скорость быть положительным числом")
+        if maxspd >= 1080000000:
+            raise ValueError("Скорость не может превышать скорость света (в км/ч) ")
+        self.maxspd = maxspd
+
+        if not isinstance(color, (str)):
+            raise TypeError("Цвет должен быть типа str")
+        self.color = color
+
+    def tuning(self, hp_plus: int):
+        """
+        Функция которая прибавляет мощности автомобилю
+        :param hp_plus: сколько прибавить мощности в л.c
+        :return: изменённую мощность автомобиля
+        Пример:
+        >>> Lancia_Delta_HF = Cars(220, 218, "white")
+        >>> Lancia_Delta_HF.tuning(20)
+        """
+        if not isinstance(hp_plus, (int, float)):
+            raise TypeError("Мощность должна быть типа int или float")
+        if hp_plus <= 0:
+            raise ValueError("Мощность должна быть положительным числом")
+        self.power += hp_plus
+
+    def repainting(self, new_color: str):
+        """
+
+        :param new_color: новый цвет
+        :return: новый цвет автомобиля
+        Пример:
+        >>> Lancia_Delta_HF = Cars(220, 218, "white")
+        >>> Lancia_Delta_HF.repainting("black")
+        """
+        if not isinstance(new_color, (str)):
+            raise TypeError("Цвет должен быть типа str")
+        self.color = new_color
+
+    if __name__ == "__main__":
+        doctest.testmod()
+
+class Racers:
+    def __init__(self, height: int, weigh: int, lap_time: int):
+        if not isinstance(height, (int, float)):
+            raise TypeError("Рост должен быть типа int или float")
+        if height <= 0:
+            raise ValueError("Рост должен быть положительным числом")
+        self.height = height
+
+        if not isinstance(weigh, (int, float)):
+            raise TypeError("Скорость должна быть типа int или float")
+        if weigh <= 0:
+            raise ValueError("Скорость быть положительным числом")
+
+        if not isinstance(lap_time, (int, float)):
+            raise TypeError("Время круга должно быть типа int или float")
+        if lap_time <= 0:
+            raise ValueError("Время круга должно положительным числом")
+    def F1 (self, track_lenght: int):
+        ...
+    def Rally(self, track_lenght: float, weather: str):
+        ...
+class Champions:
+    def __init__(self, racers: str, car: str):
+        if not isinstance(racers, (str)):
+            raise TypeError("Имя гонщика должго быть типа str")
+        self.racers = racers
+
+        if not isinstance(car, (str)):
+            raise TypeError("Название должно быть типа str")
+        self.car = car
+
+    def prize_place(self, time_lap: float):
+        ...
+    def adwarding(self, racers: str):
+        ...
+
+
+
+
