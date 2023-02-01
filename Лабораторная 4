@@ -1,0 +1,187 @@
+class Cars:
+    def __init__(self, name: str,  power: int, maxspd: int, color: str, weight: (int, float)):
+        """
+        Создание и подготовка класса "Автомобиль"
+        В данном классе атрибут "Название автомобиля" является непубличным, тк название автомобиля меняться не может, а отличие от его характеристик
+        :param name: Название автомобиля
+        :param power: Мощность автомобиля
+        :param maxspd: Максимальная скорость
+        :param color: Цвет автомобиля
+        :param weight: Масса автомобиля
+
+        Пример:
+        >>> Car_1 = Cars("Lancia Delta HF", 240, 218, "white", 900) #инициализация объекта класса
+
+        """
+
+        if not isinstance(name, (str)):
+            raise TypeError("Название должно быть типа str")
+        self._name = name
+
+        if not isinstance(power, (int, float)):
+            raise TypeError("Мощность должна быть типа int или float")
+        if power <= 0:
+            raise ValueError("Мощность должна быть положительным числом")
+        self.power = power
+
+        if not isinstance(maxspd, (int, float)):
+            raise TypeError("Скорость должна быть типа int или float")
+        if maxspd <= 0:
+            raise ValueError("Скорость быть положительным числом")
+        if maxspd >= 1080000000:
+            raise ValueError("Скорость не может превышать скорость света (в км/ч) ")
+        self.maxspd = maxspd
+
+        if not isinstance(color, (str)):
+            raise TypeError("Цвет должен быть типа str")
+        self.color = color
+
+        if not isinstance(weight, (int, float)):
+            raise TypeError("Масса автомобиля должна быть типа int или float")
+        if weight <= 0:
+            raise ValueError("Масса должна быть положительным числом")
+        if weight >= (7.36e22):
+            raise ValueError("Масса автомобиля не может превышать массу Луны (в кг) ")
+        self.weight = weight
+
+    @property
+    def name (self) -> str:
+        return self._name
+
+
+    def __str__(self):
+        return f"Автомобиль {self._name} мощность: {self.power} максимальная скорость: {self.maxspd} цвет: {self.color} масса: {self.weight}"
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name = {self._name!r}, power = {self.power!r}, maxspd = {self.maxspd!r}, color = {self.color!r}, weight = {self.weight!r})"
+
+
+
+
+    def tuning(self, hp_plus: int):
+        """
+        Метод прибавляет мощности автомобилю
+        :param hp_plus: Прибавляемая мощность
+        :return: Изменённая мощность автомобиля
+
+        Примерж:
+        >>> Car_1 = Cars("Lancia Delta HF", 240, 218, "white", 900)
+        >>> Car_1.tuning(40)
+        """
+
+        if not isinstance(hp_plus, (int, float)):
+            raise TypeError("Мощность должна быть типа int или float")
+        if hp_plus <= 0:
+            raise ValueError("Мощность должна быть положительным числом")
+        self.power += hp_plus
+
+    def repainting(self, new_color: str):
+        """
+        Метод изменяет цвет автомобиля
+        :param new_color: Цвет, в который перекрашиваем
+        :return: Новый цвет автомобиля
+
+        Пример:
+        >>> Car_1 = Cars("Lancia Delta HF", 240, 218, "white", 900)
+        >>> Car_1.repainting("red")
+        """
+
+        if not isinstance(new_color, (str)):
+            raise TypeError("Цвет должен быть типа str")
+        self.color = new_color
+
+class Passenger_cars(Cars):
+    def __init__(self, name: str,  power: int, maxspd: int, color: str, weight: (int, float), fuel_consumption: (int, float), seats: int):
+        """
+        Создание и подготовка дочернего от класса "Автомобиль" класса "Легковой автомобиль"
+        В данном классе были перегружены методы str и repr (добавлены новые атрибуты дочернего класса)
+        :param name: Название автомобиля
+        :param power: Мощность автомобиля
+        :param maxspd: Максимальная скорость автомобиля
+        :param color: Цвет автомобиля
+        :param weight: Масса авто
+        :param fuel_consumption: Расход топлива на 100км
+        :param seats: Количество сидений
+
+        Пример:
+        >>> Car_1 = Passenger_cars("Lancia Delta HF", 240, 218, "white", 900, 12, 4) #инициализация объекта класса
+        """
+
+        super().__init__(name, power, maxspd, color, weight)
+
+        if not isinstance(fuel_consumption, (int, float)):
+            raise TypeError("Расход топлива должен быть типа int или float")
+        if fuel_consumption <= 0:
+            raise ValueError("Расход топлива должен быть положительным числом")
+        self.fuel_consuption = fuel_consumption
+
+        if not isinstance(seats, int):
+            raise TypeError("Количество сидений должно быть типа int")
+        if seats <= 0:
+            raise ValueError("Колтчество сидений должно быть больше нуля")
+        self.seats = seats
+
+    def __str__(self):
+            return f"Автомобиль {self._name} мощность: {self.power} максимальная скорость: {self.maxspd} цвет: {self.color} масса: {self.weight} расход топлива: {self.fuel_consuption} количество сидений: {self.seats}"
+
+    def __repr__(self):
+            return f"{self.__class__.__name__}(name = {self._name!r}, power = {self.power!r}, maxspd = {self.maxspd!r}, color = {self.color!r}, weight = {self.weight!r}, fuel_consuption = {self.fuel_consuption!r}, seats = {self.seats!r})"
+
+
+
+
+class Truck_cars(Cars):
+    def __init__(self, name: str,  power: int, maxspd: int, color: str, weight: (int, float), load_capacity: (int, float)):
+        """
+        Создание и подготовка дочернего "Автомобили" класса "Грузовые автомобили"
+        В данном классе были перегружены методы str и repr (добавлены новые атрибуты дочернего класса)
+        :param name: Название авто
+        :param power: Мощность
+        :param maxspd: Максимальная скорость (км/ч)
+        :param color: Цвет
+        :param weight: Масса (кг)
+        :param load_capacity: Грузоподъёмность (кг)
+
+        Пример:
+        >>> Car_2 = Truck_cars("Man", 450, 90, "silver", 5000, 20000)
+        """
+        super().__init__(name, power, maxspd, color, weight)
+
+        if not isinstance(load_capacity, (int, float)):
+            raise TypeError("Грузоподъёмность должна быть типа int или float")
+        if load_capacity <= 0:
+            raise ValueError("Грузоподъёмность должна быть положительным числом")
+        self.load_capacity = load_capacity
+
+    def tuning(self, hp_plus: int):
+        """
+        Перегруженный метод "tuning" из материнского класса "Cars", при повышении мощноности у грузового автомобиля также должна и возрастать грузоподъёмность
+
+        :param hp_plus: Прибавляемая мощность
+        :return: Новая мощность и новая грузоподъёмность
+
+        Пример:
+        >>> Car_2 = Truck_cars("Man", 450, 90, "silver", 5000, 20000)
+        >>> Car_2.tuning(100)
+        """
+
+        if not isinstance(hp_plus, (int, float)):
+            raise TypeError("Мощность должна быть типа int или float")
+        if hp_plus <= 0:
+            raise ValueError("Мощность должна быть положительным числом")
+        self.power += hp_plus
+        self.load_capacity += (hp_plus * 10)
+
+    def __str__(self):
+            return f"Автомобиль {self._name} мощность: {self.power} максимальная скорость: {self.maxspd} цвет: {self.color} масса: {self.weight} грузоподъёмность: {self.load_capacity} )"
+
+    def __repr__(self):
+            return f"{self.__class__.__name__}(name = {self._name!r}, power = {self.power!r}, maxspd = {self.maxspd!r}, color = {self.color!r}, weight = {self.weight!r}, load_capacity = {self.load_capacity!r})"
+
+
+Car_1 = Passenger_cars("Lancia Delta HF", 240, 218, "white", 900, 12, 4)
+Car_1.tuning(20)
+Car_2 = Truck_cars("Man", 450, 90, "silver", 5000, 20000)
+Car_2.tuning(100)
+print(Car_2.load_capacity)
+print(str(Car_1))
